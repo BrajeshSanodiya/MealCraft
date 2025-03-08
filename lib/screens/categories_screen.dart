@@ -1,39 +1,51 @@
-
 import 'package:flutter/material.dart';
 import 'package:meal_craft/data/dummy_data.dart';
 import 'package:meal_craft/models/category.dart';
+import 'package:meal_craft/models/meal.dart';
 import 'package:meal_craft/screens/meals_screen.dart';
 import 'package:meal_craft/widgets/category_grid_item.dart';
 
-class CategoriesScreen extends StatelessWidget{
-const CategoriesScreen({super.key});
+class CategoriesScreen extends StatelessWidget {
+  const CategoriesScreen({super.key, required this.onToggleFavorite});
 
- void  _selectCategory(BuildContext ctx, Category category){
-    final filteredMeal=dummyMeals.where((meal) => meal.categories.contains(category.id),).toList();
+  final void Function(Meal meal) onToggleFavorite;
+
+  void _selectCategory(BuildContext ctx, Category category) {
+    final filteredMeal =
+        dummyMeals
+            .where((meal) => meal.categories.contains(category.id))
+            .toList();
 
     Navigator.of(ctx).push(
       MaterialPageRoute(
-        builder: (ctx)=> MealsScreen(
-          title: category.title, 
-          meals: filteredMeal)));
+        builder:
+            (ctx) => MealsScreen(
+              title: category.title,
+              meals: filteredMeal,
+              onToggleFavorite: onToggleFavorite,
+            ),
+      ),
+    );
   }
 
-
-@override
+  @override
   Widget build(BuildContext context) {
     return GridView(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, 
+        crossAxisCount: 2,
         childAspectRatio: 1.5,
         crossAxisSpacing: 20,
-        mainAxisSpacing: 20
-        ),
+        mainAxisSpacing: 20,
+      ),
       children: [
-          for (final category in availableCategories)
-          CategoryGridItem(category:category,onSelectCategory: (){
-            _selectCategory(context,category);
-          },)
-     ],);
+        for (final category in availableCategories)
+          CategoryGridItem(
+            category: category,
+            onSelectCategory: () {
+              _selectCategory(context, category);
+            },
+          ),
+      ],
+    );
   }
-  
 }

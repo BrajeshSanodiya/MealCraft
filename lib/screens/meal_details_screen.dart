@@ -3,14 +3,29 @@ import 'package:meal_craft/models/meal.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealDetailsScreen extends StatelessWidget {
-  const MealDetailsScreen({super.key, required this.meal});
+  const MealDetailsScreen({
+    super.key,
+    required this.meal,
+    required this.onToggleFavorite,
+  });
 
   final Meal meal;
+  final void Function(Meal meal) onToggleFavorite;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(meal.title)),
+      appBar: AppBar(
+        title: Text(meal.title),
+        actions: [
+          IconButton(
+            onPressed: () {
+              onToggleFavorite(meal);
+            },
+            icon: Icon(Icons.favorite),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -21,7 +36,7 @@ class MealDetailsScreen extends StatelessWidget {
               height: 200,
               width: double.infinity,
             ),
-        
+
             SizedBox(height: 24),
             Text(
               "Ingredients",
@@ -38,7 +53,7 @@ class MealDetailsScreen extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
-        
+
             SizedBox(height: 24),
             Text(
               "Steps",
@@ -50,7 +65,10 @@ class MealDetailsScreen extends StatelessWidget {
             SizedBox(height: 14),
             for (final step in meal.steps)
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 16,
+                ),
                 child: Text(
                   textAlign: TextAlign.center,
                   step,
@@ -60,7 +78,7 @@ class MealDetailsScreen extends StatelessWidget {
                 ),
               ),
 
-               SizedBox(height: 48),
+            SizedBox(height: 48),
           ],
         ),
       ),
