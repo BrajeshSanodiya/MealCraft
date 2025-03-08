@@ -4,9 +4,9 @@ import 'package:meal_craft/screens/meal_details_screen.dart';
 import 'package:meal_craft/widgets/meal_item.dart';
 
 class MealsScreen extends StatelessWidget {
-  const MealsScreen({super.key, required this.title, required this.meals});
+  const MealsScreen({super.key, this.title, required this.meals});
 
-  final String title;
+  final String? title;
   final List<Meal> meals;
 
   _openMealDetailScreen(BuildContext ctx, int mealIndex) {
@@ -51,6 +51,10 @@ class MealsScreen extends StatelessWidget {
             ),
       );
     }
-    return Scaffold(appBar: AppBar(title: Text(title)), body: content);
+    if(title==null) {
+      return content;
+    } else{
+      return Scaffold(appBar: AppBar(title: Text(title!)), body: content);
+    }
   }
 }

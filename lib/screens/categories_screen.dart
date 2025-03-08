@@ -21,11 +21,7 @@ const CategoriesScreen({super.key});
 
 @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:  AppBar(
-        title: const Text("Pick your category"),
-      ),
-     body: GridView(
+    return GridView(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2, 
         childAspectRatio: 1.5,
@@ -37,8 +33,7 @@ const CategoriesScreen({super.key});
           CategoryGridItem(category:category,onSelectCategory: (){
             _selectCategory(context,category);
           },)
-     ],), 
-    );
+     ],);
   }
   
 }
