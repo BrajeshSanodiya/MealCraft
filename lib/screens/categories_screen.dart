@@ -10,7 +10,7 @@ const CategoriesScreen({super.key});
 
  void  _selectCategory(BuildContext ctx, Category category){
     final filteredMeal=dummyMeals.where((meal) => meal.categories.contains(category.id),).toList();
-   
+
     Navigator.of(ctx).push(
       MaterialPageRoute(
         builder: (ctx)=> MealsScreen(
