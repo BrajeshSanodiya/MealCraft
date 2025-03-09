@@ -14,7 +14,7 @@ class MealDetailsScreen extends ConsumerWidget {
     final favoriteMeals = ref.watch(favoriteProvider);
     final isFavorite = favoriteMeals.contains(meal);
 
-    void _showInfoMessage(bool wasAdded) {
+    void showInfoMessage(bool wasAdded) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(
@@ -32,23 +32,32 @@ class MealDetailsScreen extends ConsumerWidget {
               final wasAdded = ref
                   .read(favoriteProvider.notifier)
                   .toggleMealFavoriteStatus(meal);
-                  _showInfoMessage(wasAdded);
+                  showInfoMessage(wasAdded);
             },
-            icon: Icon(isFavorite?Icons.favorite:Icons.favorite_border),
+            icon: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return ScaleTransition(scale: animation, child: child);
+            },
+            child: Icon(isFavorite? Icons.star : Icons.star_border,
+              key: ValueKey<bool>(isFavorite),
+            ),
+          ),
           ),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            FadeInImage(
-              placeholder: MemoryImage(kTransparentImage),
-              image: NetworkImage(meal.imageUrl),
-              fit: BoxFit.cover,
-              height: 200,
-              width: double.infinity,
+            Hero(
+              tag: meal.id,
+              child: Image.network(
+                meal.imageUrl,
+                fit: BoxFit.cover,
+                height: 200,
+                width: double.infinity,
+              ),
             ),
-
             SizedBox(height: 24),
             Text(
               "Ingredients",
