@@ -33,7 +33,9 @@ class _TabScreenState extends State<TabScreen> {
       setState(() {
         _seletedFilters=results ?? defaultFilter;
       });
-    } 
+    }else{
+      _selectPage(0);
+    }
   }
 
   void _showInfoMessage(String message) {
