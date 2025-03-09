@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meal_craft/providers/favourite_provider.dart';
-import 'package:meal_craft/providers/meals_provider.dart';
 import 'package:meal_craft/screens/main_drawer.dart';
-import 'package:meal_craft/models/meal.dart';
 import 'package:meal_craft/screens/categories_screen.dart';
 import 'package:meal_craft/screens/filter_screen.dart';
 import 'package:meal_craft/screens/meals_screen.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_craft/providers/meals_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_craft/providers/filters_provider.dart';
 
